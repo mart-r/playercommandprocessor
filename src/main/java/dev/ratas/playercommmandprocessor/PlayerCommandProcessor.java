@@ -1,6 +1,7 @@
 package dev.ratas.playercommmandprocessor;
 
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import org.bukkit.Location;
 import org.bukkit.command.BlockCommandSender;
@@ -12,7 +13,8 @@ import org.bukkit.event.server.ServerCommandEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class PlayerCommandProcessor extends JavaPlugin implements Listener {
-    private static final String AT_P = "@p";
+    private static final String AT_P = "@p(\\[.*?\\])?";
+    private static final Pattern AT_P_PATTERN = Pattern.compile(AT_P);
     private Settings settings;
 
     @Override
@@ -29,14 +31,14 @@ public class PlayerCommandProcessor extends JavaPlugin implements Listener {
         }
         BlockCommandSender sender = (BlockCommandSender) event.getSender();
         String msg = event.getCommand();
-        if (validMessage(msg) && msg.contains(AT_P)) {
+        if (validMessage(msg) && AT_P_PATTERN.matcher(msg).find()) {
             Player closest = getClosestPlayer(sender);
             if (closest == null) {
                 getLogger().warning(
                         "Unable to find closest player within distance of " + settings.getLookupDistance() + ":" + msg);
                 return;
             }
-            event.setCommand(msg.replace(AT_P, closest.getName()));
+            event.setCommand(msg.replaceAll(AT_P, closest.getName()));
         }
     }
 
