@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>dev.ratas</groupId>
   <artifactId>playercommmandprocessor</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.2-SNAPSHOT</version>
   <name>PlayerCommandProcessor</name>
   <description>Process @p to the name of the player</description>
   <properties>
