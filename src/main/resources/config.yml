@@ -1,0 +1,4 @@
+ignore-commands: true
+look-radius: 20
+commands:
+- me
