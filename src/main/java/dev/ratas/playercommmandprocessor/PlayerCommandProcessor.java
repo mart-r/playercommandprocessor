@@ -22,6 +22,8 @@ public class PlayerCommandProcessor extends JavaPlugin implements Listener {
         saveDefaultConfig();
         this.settings = new Settings(this);
         getServer().getPluginManager().registerEvents(this, this);
+
+        getCommand("pcpreload").setExecutor(new ReloadCommand(this));
     }
 
     @EventHandler
@@ -66,6 +68,11 @@ public class PlayerCommandProcessor extends JavaPlugin implements Listener {
         } else {
             return cmds.contains(cmd);
         }
+    }
+
+    public void reload() {
+        reloadConfig();
+        settings.reload();
     }
 
 }
